@@ -33,7 +33,7 @@ async function fav4() {
     let data = await Promise.all(promises);
 
     data.forEach(e => {
-        console.log(e.text);
+        $('#main').append(`<div>${e.text}</div>`);
     })
 }
 fav4();
