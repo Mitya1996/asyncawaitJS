@@ -9,14 +9,13 @@ getDeckAndDraw1();
 // Make a request to the deck of cards API to request a single card from a newly shuffled deck. Once you have the card, make a request to the same API to get one more card from the same deck.
 async function getDeckAndDraw2() {
     //two separate requests
-    let data = await $.getJSON(`https://deckofcardsapi.com/api/deck/new/draw/?count=1`);
-    let deck_id = data.deck_id;
-    let {suit, value} = data.cards[0];
-    let card1 = `${value} of ${suit}`;
-    let data2 = await $.getJSON(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=1`);
-    let {suit: suit2, value: value2} = data2.cards[0];
-    let card2 = `${value2} of ${suit2}`;
-    console.log(card1, card2);
+    let firstCardData = await $.getJSON(`https://deckofcardsapi.com/api/deck/new/draw/?count=1`);
+    let deck_id = firstCardData.deck_id;
+    let secondCardData = await $.getJSON(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=1`);
+    [firstCardData, secondCardData].forEach(card => {
+        let {value, suit} = card.cards[0];
+        console.log(`${value} of ${suit}`);
+    })
 }
 getDeckAndDraw2();
 
